@@ -1,98 +1,115 @@
-# Barry — Autonomous Trading Bot
+# 🤖 Barry — Autonomous Trading Bot
 
-> An autonomous algorithmic trading system that monitors crypto and equity markets 24/7, evaluates technical confluence in real-time, and manages the full trade lifecycle automatically.
+![Status](https://img.shields.io/badge/status-paper%20trading-yellow)
+![Win Rate](https://img.shields.io/badge/win%20rate-66.7%25-brightgreen)
+![Drawdown](https://img.shields.io/badge/max%20drawdown-4.6%25-blue)
+![Assets](https://img.shields.io/badge/assets-crypto%20%2B%20equities-purple)
+![Built With](https://img.shields.io/badge/built%20with-Python%20%C2%B7%20Alpaca%20%C2%B7%20AI--assisted-orange)
 
-**Status:** Live — running in paper mode on a $100K simulated account  
-**Built with:** Python · Alpaca API · AI-assisted development
+> An autonomous algorithmic trading system that monitors crypto and equity markets 24/7, evaluates real-time technical confluence, and manages the full trade lifecycle — entries, exits, risk, and safety — automatically.
 
----
-
-## What It Does
-
-Barry watches crypto and stock markets around the clock. When market conditions align across multiple technical factors, it enters a trade, manages the position automatically (partial exits, stop adjustments, breakeven moves), and exits based on predefined rules — no manual intervention required.
-
-**Key capabilities:**
-- Real-time market scanning across crypto and equity assets
-- Multi-factor confluence evaluation before any entry
-- Automated risk management (position sizing, stop losses, max drawdown limits)
-- Tiered exit system with partial profit-taking
-- Market regime detection (bull/bear mode switching)
-- Full trade lifecycle logging and performance tracking
-- Automatic safety halts if drawdown exceeds thresholds
+**Currently:** Live paper trading on a $100K simulated Alpaca account · Target: 200 validated trades → live deployment
 
 ---
 
-## Architecture
-
-```
-┌─────────────────────────────────────────────────────────┐
-│                        BARRY                            │
-├─────────────────────────────────────────────────────────┤
-│                                                         │
-│  MARKET SCANNER                                         │
-│  ──────────────                                         │
-│  15-min cycle → fetch OHLCV + indicators               │
-│       ↓                                                 │
-│  Confluence engine → score signals across factors       │
-│       ↓                                                 │
-│  Regime filter → bull/bear mode check                   │
-│       ↓                                                 │
-│  Risk gate → position size, daily loss limit            │
-│                                                         │
-│  TRADE MANAGER                                          │
-│  ─────────────                                          │
-│  Entry → partial exits at targets → stop management     │
-│       ↓                                                 │
-│  Breakeven moves → final exit → P&L logging             │
-│                                                         │
-│  SAFETY SYSTEMS                                         │
-│  ───────────────                                        │
-│  Max drawdown halt · Win rate monitor · Auto-revert     │
-│  Daily loss limit · Regime-based position scaling       │
-│                                                         │
-│  Assets: BTC · ETH · SOL · AVAX · LINK · BNB           │
-│          + 13 US equities (NVDA, AMD, MSFT, and more)  │
-└─────────────────────────────────────────────────────────┘
-```
-
----
-
-## Performance (Paper Trading)
+## 📊 Live Performance
 
 | Metric | Value |
 |--------|-------|
-| Account size | $100,000 (simulated) |
-| Win rate | 66.7% |
-| Max drawdown | 4.6% |
-| Mode | Paper trading (Alpaca) |
-| Target | 200 trades → live deployment |
+| 💰 Account Size | $100,000 (simulated) |
+| ✅ Win Rate | 66.7% |
+| 📉 Max Drawdown | 4.6% |
+| 🔄 Scan Cycle | Every 15 minutes |
+| 📈 Assets Monitored | 6 crypto + 13 equities |
+| 🎯 Go-Live Target | 200 paper trades |
 
 ---
 
-## Backtesting Framework
+## ⚙️ How It Works
 
-Barry includes an institutional-grade backtesting pipeline to validate strategies before deployment:
+Barry runs a continuous loop every 15 minutes:
 
-- **CPCV** (Combinatorial Purged Cross-Validation) — prevents overfitting
-- **Walk-Forward Validation** — tests on unseen data
-- **Monte Carlo Simulation** — 10,000+ scenario stress tests
-- **PSR/DSR** (Probabilistic/Deflated Sharpe Ratio) — statistical reality checks
-- **Edge scoring system** — strategies must score 80/100 to deploy
-- Full friction model (commissions, spread, slippage)
+```
+Market Data (OHLCV)
+        ↓
+Confluence Engine
+(RSI · EMA · VWAP · ATR · Bollinger Bands)
+        ↓
+Regime Filter (Bull / Bear mode)
+        ↓
+Risk Gate (position size · daily loss limit)
+        ↓
+Trade Entry → Automated Management → Exit
+        ↓
+P&L Logging + Safety Monitoring
+```
+
+When multiple technical factors align above a threshold score, Barry enters a position. It then manages the trade autonomously — moving stops to breakeven, taking partial profits at targets, and exiting fully when the trade completes or a safety condition triggers.
 
 ---
 
-## Tech Stack
+## 🛡️ Safety Systems
 
-- **Language:** Python
-- **Broker API:** Alpaca (paper + live)
-- **Data:** Real-time OHLCV via Alpaca WebSocket
-- **Indicators:** Custom confluence engine (RSI, EMA, VWAP, ATR, Bollinger Bands)
-- **Logging:** JSON memory file + rolling log
-- **Development:** AI-assisted development (OpenClaw + Claude)
+Barry is built around capital protection first:
+
+- **Max drawdown halt** — trading stops automatically if losses exceed threshold
+- **Win rate monitor** — auto-reverts settings if performance degrades
+- **Daily loss limit** — hard cap on losses per day
+- **Regime detection** — scales down position size in bear markets
+- **Single position rule** — one crypto trade at a time
+- **No data, no trade** — refuses to trade without confirmed live market feed
 
 ---
 
-## Disclaimer
+## 📈 Assets Covered
 
-This project is for educational and research purposes. Past paper trading performance does not guarantee future live results. Not financial advice.
+**Crypto:** BTC · ETH · SOL · AVAX · LINK · BNB
+
+**Equities:** NVDA · AMD · MSFT · PLTR · AVGO · XOM · UNH · SMCI · AMZN · GOOGL · SOFI · IWM · SOXL
+
+---
+
+## 🔬 Backtesting Framework
+
+Strategies must pass an institutional-grade pipeline before deploying to Barry:
+
+| Method | Purpose |
+|--------|---------|
+| CPCV (Combinatorial Purged Cross-Validation) | Prevents overfitting |
+| Walk-Forward Validation | Tests on unseen data only |
+| Monte Carlo Simulation (10,000+ scenarios) | Stress testing |
+| PSR / DSR (Probabilistic / Deflated Sharpe) | Statistical reality checks |
+| Edge Scoring (0–100) | Must score ≥80 to deploy |
+| Full Friction Model | Commissions + spread + slippage |
+
+---
+
+## 🧰 Tech Stack
+
+| Layer | Technology |
+|-------|-----------|
+| Language | Python |
+| Broker / Paper Trading | Alpaca Markets API |
+| Market Data | Alpaca WebSocket (real-time OHLCV) |
+| Indicators | Custom confluence engine |
+| State Management | JSON memory + rolling log |
+| Development | AI-assisted (OpenClaw + Claude Sonnet) |
+
+---
+
+## 🗺️ Roadmap
+
+- [x] Core confluence engine
+- [x] Automated trade lifecycle management
+- [x] Institutional backtesting framework
+- [x] Market regime detection
+- [x] Safety systems & auto-revert
+- [ ] 200 paper trades (currently: 6)
+- [ ] Live deployment on Bybit
+- [ ] Full position sizing at 30 live trades
+
+---
+
+## ⚠️ Disclaimer
+
+This project is for educational and research purposes only. Paper trading results do not guarantee live performance. Nothing here is financial advice.
